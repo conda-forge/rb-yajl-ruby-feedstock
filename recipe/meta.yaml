@@ -27,7 +27,7 @@ requirements:
 
 test:
   commands:
-    - ruby -r yajl-ruby -e 'exit 0'
+    - ruby -r yajl -e 'exit 0'
 
 about:
   home: https://rubygems.org/gems/{{ name }}
