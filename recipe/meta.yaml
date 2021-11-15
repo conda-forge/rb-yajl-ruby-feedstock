@@ -10,9 +10,9 @@ source:
   sha256: 6e32e6e681c2861e99e7389ebcca70d56cb9357b223f09fb0857e2444ee1609b
 
 build:
-  number: 0
+  number: 1
   script:
-    - gem install -N -l -V --norc --ignore-dependencies {{ name }}-{{ version }}.gem
+    - gem install -N -l -V --norc --ignore-dependencies -n $PREFIX/bin {{ name }}-{{ version }}.gem
       && gem unpack {{ name }}-{{ version }}.gem
       && make -C {{ PREFIX }}/lib/ruby/gems/{{ ruby }}.0/gems/{{ name }}-{{ version }}/ext/yajl clean
   skip: {{ win }}
@@ -23,11 +23,11 @@ requirements:
   host:
     - ruby
   run:
-    - ruby
+    - {{ pin_compatible('ruby', max_pin='x.x') }}
 
 test:
   commands:
-    - ruby -r yajl -e 'exit 0'
+    - ruby -r yajl-ruby -e 'exit 0'
 
 about:
   home: https://rubygems.org/gems/{{ name }}
@@ -40,6 +40,5 @@ about:
 
 extra:
   recipe-maintainers:
-    - oblute
-    - benhuff
+    - mxr-conda
     - conda-forge/ruby
